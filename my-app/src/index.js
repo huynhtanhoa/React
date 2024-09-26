@@ -2,33 +2,47 @@ import React from 'react';
 import './index.css';
 import ReactDOM from 'react-dom/client';
 
-function BookList(){
+const books = [
+    {
+        author: "Vivek Ramaswamy",
+        title: "Truths: The Future of America First",
+        img: "./images/book-1.jpg",
+        id: 1,
+    },
+    {
+        author: " Casey Means MD (",
+        title: "Good Energy: The Surprising Connection Between Metabolism and Limitless Health ",
+        img: "./images/book-2.jpg",
+        id: 2,
+    }
+];
+
+
+function BookList() {
     return (
         <section className="booklist">
-            <Book />
-            <Book />
-            <Book />
-            <Book />
+            {books.map((book) => {
+                const {img, title,author, id} = book
+                return(
+                    <Book img={img} title={title} author={author} key={id}/>
+                );
+            })}
+
         </section>
     );
 }
 
-function Book(){
+function Book(props) {
+    console.log(props);
+    // const { img, title, author } = props;
     return (
         <article className="book">
-            <Image />
-            <Title />
-            <Author />
+            <img src={props.img} alt={props.title}/>
+            <h2>{props.title}</h2>
+            <h4>{props.author}</h4>
         </article>
     );
 }
 
-const Image = () => <img src="https://images-na.ssl-images-amazon.com/images/I/71wyLqCorxL._AC_UL900_SR900,600_.jpg"
-                         alt="Truths: The Future of America First"/>
-const Title = () => {
-    return <h2>Truths: The Future of America First</h2>
-}
-const Author = () => <h4>Vivek Ramaswamy</h4>
-
 const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<BookList />);
+root.render(<BookList/>);
